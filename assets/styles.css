@@ -1,0 +1,157 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 100%;
+}
+
+:root {
+  /* colors */
+  --sand-40: #fcfff2;
+  --sand-50: #e2e6d5;
+  --green-40: #a3e7a3;
+  --green-50: #45cc45;
+  --green-60: #329632;
+  --red-50: #ed6f5f;
+  --blue-20: #aac3ec;
+  --blue-30: #6996df;
+  --blue-40: #3c73cc;
+  --blue-50: #2968ce;
+  --blue-60: #124391;
+  /* greys */
+  --grey-10: #e5eef7;
+  --grey-20: #c0ccd6;
+  --grey-30: #a2b5c5;
+  --grey-40: #768a9b;
+  --grey-50: #536777;
+
+  --white: #fff;
+  --black: #000;
+  
+  --ff-primary: 'Open Sans', sans-serif;
+  --transition: all 0.3s ease-out;
+}
+
+body {
+  font-family: var(--ff-primary);
+  background: var(--blue-20);
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1.5rem;
+  background: var(--blue-30);
+  color: var(--grey-20);
+  border-bottom: 10px solid var(--blue-60);
+  text-align: center;
+  font-weight: 700;
+}
+header h1 {
+  color: var(--grey-10);
+  font-size: 3rem;
+  text-decoration: underline;
+}
+.date {
+  margin: 0 42%;
+  padding: 0.2rem;
+  background: var(--grey-10);
+  border-radius: 0.25rem;
+  border: none;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+.date:hover {
+  cursor: pointer;
+  background: var(--grey-20);
+  color: var(--sand-50);
+  text-shadow: 2px 2px 5px var(--black);
+}
+
+.planner {
+  margin: 1rem 15%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(9, 1fr);
+  justify-items: center;
+  gap: 0.5rem;
+  background: var(--grey-10);
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: inset 0px 0px 5px 5px var(--blue-20);
+}
+
+.entry {
+  display: flex;
+  width: 100%;
+  padding: 0.15rem;
+  border-radius: 0.5rem;
+}
+
+.hour,
+.save {
+  width: 15%;
+}
+
+.hour {
+  padding: 1rem;
+  text-align: right;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  background: linear-gradient(42deg, transparent, var(--grey-30) 42%, var(--sand-40));
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.notes {
+  width: 70%;
+  background: var(--sand-50);
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  transition: var(--transition);
+}
+.notes:hover {
+  background: var(--grey-10);
+}
+.notes:focus {
+  background: var(--grey-10);
+}
+
+.btn {
+  display: grid;
+  place-items: center;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  background: var(--blue-50);
+  font-size: 2rem;
+  position: relative;
+}
+
+.btn:hover {
+  background: var(--blue-30);
+}
+
+.save:hover::after {
+  content: "save notes";
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  color: var(--green-40);
+  font-size: 0.75rem;
+}
+
+.clear {
+  background: var(--red-50);
+  padding: 0.2rem;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  font-weight: 700;
+
+}
