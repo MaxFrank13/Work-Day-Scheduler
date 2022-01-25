@@ -8,6 +8,8 @@ const halfHour = $('p.half-hour');
 const notes = $('input.notes');
 const saveBtns = $('button.save');
 const clearBtn = $('button.clear');
+const saveOverlay = $('.save-overlay');
+const saveNote = $('p.save-notifcation');
 
 // access current hour & day globally
 const currentHour = moment().format("H");
@@ -24,8 +26,13 @@ $(function () {
   date.datepicker({
     showAnim: "slide",
     onSelect: function () {
+      clearVals();
+      let formattedSelect = moment(new Date(date.val())).format("YYYY-MM-DD");
+      let formattedToday = moment(new Date(today)).format("YYYY-MM-DD");
       if (date.val() === today) {
         colorCode();
+      } else if (moment(formattedSelect).isBefore(formattedToday)) {
+        colorBlack();
       } else {
         colorGreen();
       }
@@ -53,10 +60,17 @@ $(function () {
 
       for (let i = 1; i < entries[index].children.length; i++) {
         let subEntry = entries[index].children[i].children[1].value
-        currentVals[index].push(subEntry);
+        let subEntryTime = entries[index].children[i].children[0].value
+        let subEntryArray = [];
+        subEntryArray.push(subEntryTime);
+        subEntryArray.push(subEntry);
+
+        currentVals[index].push(subEntryArray);
+        console.log(currentVals);
       }
     })
     setLocalStorage(date.val(), currentVals);
+    saveNotification();
   })
 
   // clear notes
@@ -72,6 +86,7 @@ $(function () {
     parentContainer.children[1].focus();
   })
 
+  // create new entry underneath hour
   hour.on('dblclick', function (e) {
     const newSection = createSubSection();
     const parentContainer = e.target.parentElement.parentElement;
@@ -86,33 +101,28 @@ $(function () {
 
   function getLocalStorage(date) {
     if (localStorage.getItem(date)) {
+
       currentVals = JSON.parse(localStorage.getItem(date));
 
       notes.each((index) => {
         notes[index].value = currentVals[index][0];
-        console.log(currentVals[index].length);
+
         for (let i = 1; i < currentVals[index].length; i++) {
           const newSection = createSubSection();
-          newSection.children[1].value = currentVals[index][i];
+          console.log(currentVals[index][1])
+          newSection.children[0].value = currentVals[index][i][0];
+          newSection.children[1].value = currentVals[index][i][1];
           entries[index].append(newSection);
         }
       })
     } else {
-      notes.each((index) => {
-        notes[index].value = '';
-      })
+      clearVals();
     }
   }
 
   function clearLocalStorage() {
     localStorage.clear();
-    notes.each((index) => {
-      notes[index].value = '';
-    })
-    const subNotes = $('input.sub-notes');
-    subNotes.each((index) => {
-      subNotes[index].value = '';
-    })
+    clearVals();
   }
 })
 
@@ -141,8 +151,14 @@ function colorGreen() {
   })
 }
 
-function createSubSection() {
+function colorBlack() {
+  entries.each((index) => {
+    entries[index].style.background = "linear-gradient(var(--grey-60), transparent)";
+    entries[index].style.boxShadow = "inset 0px 0px 14px 4px var(--grey-50)";
+  })
+}
 
+function createSubSection() {
   const newInput = `<input type="text" class="half-hour">
   <input type="text" class="sub-notes">`;
 
@@ -151,4 +167,21 @@ function createSubSection() {
   newSection.classList.add('sub-section');
 
   return newSection;
+}
+
+function clearVals() {
+  notes.each((index) => {
+    notes[index].value = '';
+  })
+  const subNotes = $('.sub-section');
+  subNotes.each((index) => {
+    subNotes[index].remove();
+  })
+}
+
+function saveNotification() {
+  saveOverlay.removeClass("hide");
+  setTimeout(function() {
+    saveOverlay.addClass("hide");
+  }, 1200)
 }
