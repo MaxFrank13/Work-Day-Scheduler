@@ -21,6 +21,7 @@ html {
   --green-50: #45cc45;
   --green-60: #047c04;
   --red-50: #ed6f5f;
+  --red-60: #cf412e;
   --blue-20: #aac3ec;
   --blue-30: #6996df;
   --blue-40: #3c73cc;
@@ -87,7 +88,7 @@ header h1 {
 /* Planner */
 
 .planner {
-  margin: 1rem 15%;
+  margin: 1rem 5%;
   background: var(--grey-10);
   padding: 2rem;
   border-radius: 2rem;
@@ -110,8 +111,8 @@ header h1 {
 }
 .sub-section {
   display: flex;
-  justify-content: center;
-  animation: dropdown 0.5s;
+  padding-left: 5%;
+  animation: dropdown 0.3s;
 }
 
 .hour,
@@ -120,12 +121,13 @@ header h1 {
 }
 .hour,
 .half-hour {
+  position: relative;
   cursor: pointer;
   padding: 1rem;
   text-align: right;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-  background: linear-gradient(42deg, transparent, var(--grey-30) 42%, var(--sand-40));
+  background: linear-gradient(108deg, transparent, var(--sand-40));
   font-weight: 700;
   font-size: 1.2rem;
   transition: var(--transition);
@@ -135,6 +137,7 @@ header h1 {
   background: linear-gradient(42deg, var(--sand-40), var(--grey-30) 42%, transparent);
   color: var(--sand-40);
 }
+
 .half-hour {
   width: 12%;
   font-family: var(--ff-primary);
@@ -147,6 +150,10 @@ header h1 {
   padding: 1rem 2rem;
   font-size: 1.6rem;
   transition: var(--transition);
+}
+
+.sub-notes {
+  width: 72%;
 }
 .notes:hover,
 .sub-notes:hover {
@@ -166,6 +173,21 @@ header h1 {
   font-size: 2rem;
   position: relative;
   transition: var(--transition);
+}
+
+.green {
+  background: linear-gradient(var(--green-60), transparent);
+  box-shadow: 0px 0px 4px 1px var(--green-60);
+}
+
+.red {
+  background: linear-gradient(var(--red-50), transparent);
+  box-shadow: 0px 0px 4px 1px var(--red-50);
+}
+
+.black {
+  background: linear-gradient(var(--grey-60), transparent);
+  box-shadow: inset 0px 0px 14px 4px var(--grey-50);
 }
 
 /* Buttons */
@@ -189,6 +211,13 @@ header h1 {
   font-size: 1rem;
   font-weight: 700;
 }
+.delete {
+  background: var(--blue-60);
+  font-size: 1rem;
+  padding: 0 0.35rem;
+  color: red;
+}
+
 .save-overlay {
   position: fixed;
   top: 0;
@@ -214,6 +243,20 @@ header h1 {
   display: none;
 }
 
+/* Media Queries */
+
+@media screen and (min-width: 700px) {
+  .hour:hover::before {
+    content: 'double-click';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 0.8rem;
+    color: var(--blue-60);
+    animation: dropdown 0.3s;
+  }
+}
+
 /* Animations */
 
 @keyframes slidein {
@@ -228,13 +271,16 @@ header h1 {
   }
 }
 
+
 @keyframes dropdown {
   from {
+    opacity: 0.5;
     margin-top: -5%;
     height: 150%;
   }
 
   to {
+    opacity: 0.5;
     margin-top: 0%;
     height: 100%;
   }

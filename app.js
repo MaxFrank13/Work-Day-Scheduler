@@ -42,6 +42,8 @@ $(function () {
   date.datepicker("option", "dateFormat", "DD, M d yy");
   date.val(today);
   getLocalStorage(today);
+  addDeleteBtns();
+  setLocalStorage(today, currentVals)
 
   // **** Color Code Entries ****
   colorCode();
@@ -91,6 +93,8 @@ $(function () {
     const newSection = createSubSection();
     const parentContainer = e.target.parentElement.parentElement;
     parentContainer.append(newSection);
+    addDeleteBtns();
+    setLocalStorage(date.val(), currentVals);
   });
 
   // **** Local Storage ****
@@ -109,12 +113,12 @@ $(function () {
 
         for (let i = 1; i < currentVals[index].length; i++) {
           const newSection = createSubSection();
-          console.log(currentVals[index][1])
           newSection.children[0].value = currentVals[index][i][0];
           newSection.children[1].value = currentVals[index][i][1];
           entries[index].append(newSection);
         }
       })
+
     } else {
       clearVals();
     }
@@ -128,39 +132,48 @@ $(function () {
 
 // **** Functions ****
 
+function addDeleteBtns() {
+  $('.delete').on('click', function (e) {
+
+    const parentEl = e.target.parentElement.parentElement;
+    const plannerEl = $('.planner');
+    const entryIndex = Array.from(plannerEl.children()).indexOf(parentEl);
+    console.log(entryIndex);
+    const targetIndex = Array.from(e.target.parentElement.parentElement.children).indexOf(e.target.parentElement);
+
+    currentVals[entryIndex].splice(targetIndex, 1);
+    e.target.parentElement.remove();
+  })
+}
+
 function colorCode() {
 
   entries.each((index) => {
     if (index + 9 > currentHour) {
-      entries[index].style.background = "linear-gradient(var(--green-60), transparent)";
-      entries[index].style.boxShadow = "0px 0px 4px 1px var(--green-60)";
+      entries[index].classList.add("green");
     } else if (index + 9 < currentHour) {
-      entries[index].style.background = "linear-gradient(var(--grey-60), transparent)";
-      entries[index].style.boxShadow = "inset 0px 0px 14px 4px var(--grey-50)";
+      entries[index].classList.add("black")
     } else {
-      entries[index].style.background = "linear-gradient(var(--red-50), transparent)";
-      entries[index].style.boxShadow = "0px 0px 4px 1px var(--red-50)";
+      entries[index].classList.add("red");
     }
   })
 }
 
 function colorGreen() {
   entries.each((index) => {
-    entries[index].style.background = "linear-gradient(var(--green-60), transparent)";
-    entries[index].style.boxShadow = "0px 0px 4px 1px var(--green-60)";
+    entries[index].classList.add("green");
   })
 }
 
 function colorBlack() {
   entries.each((index) => {
-    entries[index].style.background = "linear-gradient(var(--grey-60), transparent)";
-    entries[index].style.boxShadow = "inset 0px 0px 14px 4px var(--grey-50)";
+    entries[index].classList.add("black");
   })
 }
 
 function createSubSection() {
   const newInput = `<input type="text" class="half-hour">
-  <input type="text" class="sub-notes">`;
+  <input type="text" class="sub-notes"> <button class="delete btn">&#10060</button>`;
 
   const newSection = document.createElement('section');
   newSection.innerHTML = newInput;
@@ -181,7 +194,7 @@ function clearVals() {
 
 function saveNotification() {
   saveOverlay.removeClass("hide");
-  setTimeout(function() {
+  setTimeout(function () {
     saveOverlay.addClass("hide");
   }, 1200)
 }
