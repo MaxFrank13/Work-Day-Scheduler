@@ -23,14 +23,14 @@ We are employing the use of CSS `animation` property to give a cleaner look to t
 The JS file starts by using jQuery selectors to grab elements from the DOM. The current hour and current day are initialized in their own variables using the moment.js library. This library is used throughout the app to source information about the time and day.
 
 1. Upon load, the jQuery `datepicker()` is used to not only to display the current date but also provides a calendar to choose any other day from
-  - whenever a user selects a date from the calendar, a function will fire that checks the local storage for any information pertaining to that date
-  - the date is then checked to see if it's before or after the current date; this information is used to color the entries accordingly (black for past dates, green for future dates)
+    - whenever a user selects a date from the calendar, a function will fire that checks the local storage for any information pertaining to that date
+    - the date is then checked to see if it's before or after the current date; this information is used to color the entries accordingly (black for past dates, green for future dates)
 
 2. Local storage is then accessed using a function that takes a date as its parameter; initially we pass it the current date
-  - this grabs data from local storage and then uses it to create elements dynamically used JavaScript
+    - this grabs data from local storage and then uses it to create elements dynamically in JavaScript
 
 3. A colorCode function is used to color each entry based on it's time of day
 
 4. Whenever a user clicks any of the save buttons, a function interates through each input the user has made on that day and logs it to the local storage
-  - each date has it's own object in local storage that has a nested array in index 1 to account for any sub sections
-  - the save notification is given functionality to hide and show for 1.2s, triggering it's CSS animation property
+    - each date has it's own object in local storage that has a nested array in index 1 to account for any sub sections
+    - the save notification is given functionality to hide and show for 1.2s, triggering it's CSS animation property
