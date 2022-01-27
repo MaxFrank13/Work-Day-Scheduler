@@ -34,6 +34,7 @@ $(function () {
       } else if (moment(formattedSelect).isBefore(formattedToday)) {
         colorBlack();
       } else {
+        console.log('green');
         colorGreen();
       }
       getLocalStorage(date.val());
@@ -100,7 +101,10 @@ $(function () {
   // **** Local Storage ****
 
   function setLocalStorage(date, array) {
-    localStorage.setItem(date, JSON.stringify(array));
+    if (array.length > 0) {
+      localStorage.setItem(date, JSON.stringify(array));
+      
+    }
   }
 
   function getLocalStorage(date) {
@@ -150,10 +154,16 @@ function colorCode() {
 
   entries.each((index) => {
     if (index + 9 > currentHour) {
+      entries[index].classList.remove("red");
+      entries[index].classList.remove("black");
       entries[index].classList.add("green");
     } else if (index + 9 < currentHour) {
+      entries[index].classList.remove("green")
+      entries[index].classList.remove("red")
       entries[index].classList.add("black")
     } else {
+      entries[index].classList.remove("green");
+      entries[index].classList.remove("black");
       entries[index].classList.add("red");
     }
   })
@@ -161,12 +171,22 @@ function colorCode() {
 
 function colorGreen() {
   entries.each((index) => {
+    if (entries[index].classList.contains("black") || entries[index].classList.contains("red")) {
+
+      entries[index].classList.remove("red");
+      entries[index].classList.remove("black");
+    }
     entries[index].classList.add("green");
   })
 }
 
 function colorBlack() {
   entries.each((index) => {
+    if (entries[index].classList.contains("green") || entries[index].classList.contains("red")) {
+
+      entries[index].classList.remove("red");
+      entries[index].classList.remove("green");
+    }
     entries[index].classList.add("black");
   })
 }

@@ -99,7 +99,7 @@ header h1 {
 
 .entry-section {
   padding: 0.15rem;
-  margin: 0.25rem;
+  margin: 0.5rem 0.25rem;
   border-radius: 0.35rem;
 }
 .entry {
@@ -134,8 +134,8 @@ header h1 {
 }
 .hour:hover,
 .half-hour:hover {
-  background: linear-gradient(42deg, var(--sand-40), var(--grey-30) 42%, transparent);
-  color: var(--sand-40);
+  background: linear-gradient(42deg, var(--sand-40), transparent);
+  text-shadow: -1px 1px 0px var(--green-50);
 }
 
 .half-hour {
@@ -146,7 +146,7 @@ header h1 {
 .notes,
 .sub-notes {
   width: 70%;
-  background: var(--sand-50);
+  background: linear-gradient(var(--sand-50) 71%, var(--grey-40));
   padding: 1rem 2rem;
   font-size: 1.6rem;
   transition: var(--transition);
@@ -157,11 +157,11 @@ header h1 {
 }
 .notes:hover,
 .sub-notes:hover {
-  background: var(--grey-10);
+  background: linear-gradient(var(--sand-50) 71%, var(--grey-10));
 }
 .notes:focus,
 .sub-notes:focus {
-  background: var(--grey-10);
+  background: linear-gradient(var(--sand-50) 71%, var(--grey-20));
 }
 .btn {
   cursor: pointer;
@@ -176,7 +176,7 @@ header h1 {
 }
 
 .green {
-  background: linear-gradient(var(--green-60), transparent);
+  background: linear-gradient(var(--green-60), transparent 50%);
   box-shadow: 0px 0px 4px 1px var(--green-60);
 }
 
@@ -186,7 +186,7 @@ header h1 {
 }
 
 .black {
-  background: linear-gradient(var(--grey-60), transparent);
+  background: linear-gradient(var(--grey-60), transparent 60%);
   box-shadow: inset 0px 0px 14px 4px var(--grey-50);
 }
 
